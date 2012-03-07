@@ -197,6 +197,12 @@ object Basics {
     }
 
     println("An array of human-readable strings")
+    /*
+    * If we map over an Array[Int] with a function 
+    * humanString : Int -> String, we get back an Array[String].
+    * The return type is the most specific type (i.e. an Array
+    * rather than a more generic iterable) and statically checked!
+    */
     val aStr = aPlus.map{ humanString }
     println( aStr.mkString(", ") +"\n" )
 
