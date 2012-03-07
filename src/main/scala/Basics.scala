@@ -7,6 +7,8 @@
  * This imports the default mutable map collection, and renames it locally to MMap.
  */
 import scala.collection.mutable.{ OpenHashMap => MMap }
+import java.util.{ LinkedHashMap => JMap }
+import scala.collection.JavaConversions._
 
 /* In Scala, there is no "static modifier" for functions.
  * Instead, there are both "object"s and "class"es.  Objects
@@ -26,8 +28,8 @@ object Basics {
   def main( args: Array[String] ) { 
     // We have a number of useful functions which are automatically imported into
     // every Scala program (from what we call Predef).  The "println" method is one
-    // of these.
-    println("Hello Scala Basics!")
+    // of these.  We also want an 'extra' newline.
+    println("Hello Scala Basics!\n")
 
     /* Scala has support for nested functions, so we can define
      * a function which will be useful later right here.
@@ -152,6 +154,13 @@ object Basics {
     val aPlus = a.map{ addOne }
     println( aPlus.mkString(",") +"\n" )
 
+    println("""The original numbers in a 'Set'""")
+    val aSet = a.toSet
+    println( aSet.mkString(",") +"\n" )
+    
+    println("""If we map over a 'Set', we get back a 'Set', not some more generic 'list' type as in python""")
+    val aSetPlus = aSet.map{ addOne }
+    println( aSetPlus.mkString(",") +"\n" )
 
     def humanString( v:Int ) = { 
      /* conditional expressions evaluate to either
@@ -200,7 +209,16 @@ object Basics {
     println("But soon, "+rob.name+" will be "+(rob.age+1))
     // And change the ones we marked with var
     rob.age += 1
-    println(rob)
+    println(rob+"?")
+
+    // Scala has very good interoperability with Java
+    println("\n Using Java")
+    // We can use java collections
+    val jmap = new JMap[String,String]
+    jmap.put("hello", "Java")
+    jmap.put("meet", "Scala")
+    // And even endow them with some Scala functionality
+    println(jmap.mkString(", "))
 
   }
 
