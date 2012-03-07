@@ -27,7 +27,7 @@ case class SlimGraph() {
    */  
   val adjList = ArrayBuffer[Set[Int]]()
   var size = 0
-  .
+  
   def insertEdge(u: Int, v: Int, directed: Boolean) {
   
     def insertAdjList(u: Int, v: Int) {
@@ -100,43 +100,4 @@ case class SlimGraph() {
     }   
   }
   
-}
-  
-object GraphAlgorithms {
-
-  def triangles(graph: SlimGraph) = {
-    val tris = Set[Set[Int]]()
-
-
-
-  def undirect(digraph: SlimGraph) = {
-    val graph = SlimGraph()
-    digraph.edges.foreach{ case(v,w) => graph.insertEdge(v,w,false) }
-    graph
-  }
-
-}
-  
-object EdgeListReader {
-  val str2Int  = Map[String, Int]()
-  
-  def fromFile( fname: String ) = {
-    val fsrc = Source.fromFile( fname )
-    val graph = SlimGraph()
-
-    fsrc.getLines.foreach{ l =>
-  
-        if ( !l.trim.startsWith("#") ) { // ignore comments
-          val toks = l.split("""\s+""").toList
-          val u = str2Int.getOrElseUpdate(toks(0), str2Int.size) 
-          val v = str2Int.getOrElseUpdate(toks(1), str2Int.size) 
-          graph.insertEdge(u,v,false)
-        }
-  
-    }
-
-    fsrc.close()
-    (graph, str2Int.map{case(k,v) => (v,k) }.toMap)
-  }
-
 }
